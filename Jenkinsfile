@@ -12,7 +12,9 @@ pipeline {
 
         stage('Build') {
             agent {
-                docker ( image 'maven:3-openjdk-8' )
+                docker { 
+                    image 'maven:3-openjdk-8' 
+                }
             }
             steps {
                 sh 'mvn clean package'
@@ -46,7 +48,9 @@ pipeline {
 
         stage('Running Container') {
             agent {
-                docker ( image 'docker:dind' )
+                docker {
+                    image 'docker:dind' 
+                }
             }
             steps {
                 sh 'docker -H tcp://172.31.39.212:2375 run -d --name webserver -p 80:8080 taemham/tomcat:latest'
